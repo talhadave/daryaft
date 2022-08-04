@@ -1,14 +1,17 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import render
 
 
 # Create your views here.
 def question_view(request):
-    return HttpResponse("<h1> this is my question view</h1>")
+    template_name = "template/base.html"
+    return render(request, template_name)
 
 
 def tags_view(request):
-    return HttpResponse("<h1> this is my tagsview</h1>")
+    template_name = "template/base.html"
+    return render(request, template_name)
 
 
 def answer_view(request):
-    return HttpResponse("<h1> this is my answer view</h1>")
+    template_name = "template/base.html"
+    return render(request, template_name)
