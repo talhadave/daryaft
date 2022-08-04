@@ -5,7 +5,13 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
+# from core.views import question_view
+from core.views import answer_view, question_view, tags_view
+
 urlpatterns = [
+    path("question/", question_view),
+    path("tags/", tags_view),
+    path("answer", answer_view),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
