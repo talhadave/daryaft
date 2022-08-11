@@ -43,7 +43,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 DATABASES = {
     "default": env.db(
-        "DATABASE_URL",
+        "postgres://postgres:root@127.0.0.1:5432/daryaft",
         default="postgres:///daryaft",
     ),
 }
@@ -82,6 +82,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "daryaft.users",
     "core",
+    "ckeditor",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

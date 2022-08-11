@@ -1,3 +1,4 @@
+# from distutils import core
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -6,11 +7,21 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 # from core.views import question_view
-from core.views import answer_view, question_view, tags_view
+from core.views import (
+    answer_view,
+    ask_question,
+    index_view,
+    question_detail_view,
+    question_view,
+    tags_view,
+)
 
 urlpatterns = [
-    path("question/", question_view),
+    path("question/", question_view, name="question"),
+    path("ask_question/", ask_question, name="ask_question"),
+    path("question/<int:question_id>/", question_detail_view, name="detail"),
     path("tags/", tags_view),
+    path("index/", index_view),
     path("answer", answer_view),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(

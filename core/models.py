@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 
 from daryaft.users.models import User
@@ -5,12 +6,16 @@ from daryaft.users.models import User
 
 # Create your models here.
 class question(models.Model):
-    User = models.ForeignKey(User, on_delete=models.CASCADE)
+    User = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=User)
     question_title = models.CharField(max_length=250)
-    question_body = models.TextField(max_length=500)
+    question_body = RichTextField(max_length=500)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     like = models.IntegerField(default=0)
+    # tags=models.ForeignKey(tags,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.question_title
 
 
 class tags(models.Model):

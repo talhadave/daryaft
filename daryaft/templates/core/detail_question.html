@@ -1,0 +1,9 @@
+<h1>{{ question.question_title }}</h1>
+<h1>{{ question.question_body }}</h1>
+<h1>{{ question.User }}</h1>
+<form action="" method="post">
+    {% csrf_token %}
+    {{form.media}}
+    {{form}}
+    <button type="submit">ok</button>
+</form>
