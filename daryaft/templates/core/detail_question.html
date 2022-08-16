@@ -1,9 +1,15 @@
+{% extends "base.html" %}
+{% block question_view %}
 <h1>{{ question.question_title }}</h1>
 <h1>{{ question.question_body }}</h1>
 <h1>{{ question.User }}</h1>
-<form action="" method="post">
-    {% csrf_token %}
-    {{form.media}}
-    {{form}}
-    <button type="submit">ok</button>
-</form>
+<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente ipsa, tenetur saepe, deserunt adipisci ea veritatis deleniti enim pariatur, eligendi commodi ducimus porro nisi debitis voluptatum! Consequatur laborum labore ducimus aspernatur nostrum corrupti numquam, mollitia explicabo saepe iste suscipit reprehenderit nemo vero quasi placeat.</p>
+<li>
+
+    <a href="/edit_question/{{ question.id }}/">edit</a>
+</li>
+<h1>Click on answer button </h1>
+<li>
+    <a href="/answer/{{ question.id }}/">Answer</a>
+</li>
+{% endblock question_view %}

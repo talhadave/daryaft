@@ -1,0 +1,8 @@
+<h1>{{ user.username }}</h1>
+li><a href="/edit/{{ question.id }}/"></a>
+<form action="" method="post">
+    {% csrf_token %}
+    {{formset.media}}
+    {{formset}}
+    <button type="submit">ok</button>
+</form>

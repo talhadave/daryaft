@@ -1,6 +1,6 @@
 from django import forms
 
-from core.models import question
+from core.models import Answer, question
 
 
 class questionForm(forms.ModelForm):
@@ -13,3 +13,12 @@ class questionForm(forms.ModelForm):
         exclude = [
             "User",
         ]
+
+
+class answerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = [
+            "answer",
+        ]
+        exclude = ["User", "question"]

@@ -28,24 +28,23 @@
 
 </style>
 {% endblock slidebar_css %}
-{% block question_view %}
-<h1>Top Questions</h1>
+{% block answer_view %}
+<h1>Top Answers</h1>
 <div class="question_view">
     {% if latest_question_list %}
 <ul>
-{% for question in latest_question_list %}
-<li><a href="/question/{{ question.id }}/">
-   <h2>{{ question.question_title }}</h2>
-   <h6>{{question.like}}</h6>
-   <h6>{{question.User}}</h6></a></li>
+{% for answer in latest_question_list %}
+<li><a href="/answer_view/{{ question.id }}/">
+   <h2>{{ answer.answer}}</h2>
+   <h6>{{answer.User}}</h6></a></li>
 {% endfor %}
 <a class="btn btn-primary" href="/index/" role="button">Link</a>
 </ul>
 {% else %}
-<p>No question available</p>
+<p>No Answeravailable</p>
 {% endif %}
 </div>
 <li class="nav-item1">
     <a class="nav-link" href="{% url 'ask_question' %}">Ask Question</a>
   </li>
-  {% endblock question_view %}
+  {% endblock answer_view %}

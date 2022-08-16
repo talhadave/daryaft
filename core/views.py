@@ -1,16 +1,8 @@
-# from django import forms
-# from django.contrib.auth.mixins import LoginRequiredMixin
-# from django.forms import modelformset_factory
-# from django.http import Http404
+from django.forms import modelformset_factory
 from django.shortcuts import get_object_or_404, render
 
-from core.form import questionForm
+from core.form import answerForm, questionForm
 from core.models import question
-
-# from django.views.generic.edit import View
-
-
-# from daryaft.daryaft.users.views import User
 
 
 # Create your views here.
@@ -22,13 +14,13 @@ def question_view(request):
 
 
 def ask_question(request):
-    # questionForm=modelformset_factory(question,fields=('question_title','question_body'))
-    # form=questionForm()
     form = questionForm(request.POST or None)
     # if request.method=='POST':
     if form.is_valid():
         obj = form.save(commit=False)
         # form.instance.User = request.User
+        current_user = request.user
+        print(current_user.id)
         # obj.question_title=form.cleaned_data.get("question_title")
         # obj.user=User .objects.get(User=self.request.User)
         obj.save()
@@ -38,19 +30,28 @@ def ask_question(request):
     return render(request, template_name, context)
 
 
-# class ask_question(LoginRequiredMixin, View):
-#     def get(self, request, *args, **kwargs):
-#         form = questionForm()
-#         context = {'form':form}
-#         return render(request, 'core/ask_question.html', context)
+def edit_question(request, question_id):
+    questions = get_object_or_404(question, pk=question_id)
+    AuthorFormSet = modelformset_factory(
+        question, fields=("question_title", "question_body")
+    )
+    queryset = question.objects.filter(id=question_id)
+    if request.method == "POST":
+        formset = AuthorFormSet(
+            request.POST,
+            request.FILES,
+            queryset=queryset,
+        )
+        if formset.is_valid():
+            formset.save()
+            # Do something.
+    else:
+        formset = AuthorFormSet(queryset=queryset)
+    return render(
+        request, "core/edit_question.html", {"formset": formset, "question": questions}
+    )
 
-#     def post(self, request, *args, **kwargs):
 
-#         form = questionForm(request.POST)
-#         form.instance.user = request.user
-#         if form.is_valid():
-#             form.save()
-#             return redirect(reverse('core:index'))
 def question_detail_view(request, question_id):
     # try:
     # questions=question.objects.all()
@@ -81,6 +82,30 @@ def tags_view(request):
     return render(request, template_name)
 
 
-def answer_view(request):
-    template_name = "base.html"
-    return render(request, template_name)
+def ask_answer(request, question_id):
+    questions = get_object_or_404(question, pk=question_id)
+    form = answerForm(request.POST or None)
+    # if request.method=='POST':
+    if form.is_valid():
+        obj = form.save(commit=False)
+        # form.question= question.objects.filter(id=question_id)
+        # current_question=request.question_id
+        current_user = request.user
+        print(current_user.id)
+        # form.instance.User = request.User
+        # obj.question_title=form.cleaned_data.get("question_title")
+        # obj.user=User .objects.get(User=self.request.User)
+        obj.save()
+        form = answerForm()
+    context = {"form": form, "question": questions}
+    template_name = "core/answer.html"
+    return render(request, template_name, context)
+
+
+# def answer_view(request, question_id):
+#     latest_question_list = Answer.objects.filter(question=question_id).order_by(
+#         "created"
+#     )[:10]
+#     template_name = "core/answer_view.html"
+#     context = {"latest_question_list": latest_question_list}
+#     return render(request, template_name, context)

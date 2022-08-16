@@ -7,9 +7,10 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
 # from core.views import question_view
-from core.views import (
-    answer_view,
+from core.views import (  # answer_view,
+    ask_answer,
     ask_question,
+    edit_question,
     index_view,
     question_detail_view,
     question_view,
@@ -20,9 +21,11 @@ urlpatterns = [
     path("question/", question_view, name="question"),
     path("ask_question/", ask_question, name="ask_question"),
     path("question/<int:question_id>/", question_detail_view, name="detail"),
+    path("edit_question/<int:question_id>/", edit_question, name="edit"),
     path("tags/", tags_view),
     path("index/", index_view),
-    path("answer", answer_view),
+    path("answer/<int:question_id>/", ask_answer, name="answer"),
+    # path("answer_view/<int:question_id>/", answer_view, name="answer_view"),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"

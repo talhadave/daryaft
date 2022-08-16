@@ -27,9 +27,9 @@ class tags(models.Model):
 
 
 class Answer(models.Model):
-    question_id = models.ForeignKey(
+    question = models.ForeignKey(
         question, on_delete=models.CASCADE, blank=False, null=True
     )
-    answer = models.TextField(max_length=1000)
+    answer = RichTextField(max_length=1000)
     created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    User = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=User)
