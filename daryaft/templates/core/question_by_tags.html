@@ -1,11 +1,11 @@
 {% extends "core/sidebar.html" %}
 {% block question_view %}
-  <div class="container bg-info ">
+  <div class="container bg-light ">
    {% if questions %}
     {% for quest in questions %}
     <div class="card mb-4 shado bg-light">
-      <div class="card-body table-danger">
-        <h4 class="card-title "><a href="/question/{{quest.id}}">{{quest.question_title|truncatewords_html:12}}</a></h4>
+      <div class="card-body table-primary">
+        <h4 class="card-title"> <b><a class="text-black" href="/question/{{quest.id}}">{{quest.question_title|truncatewords_html:12}}</a></h4></b>
         <hr>
         <i class="fa-solid fa-paper-plane-top"></i>
         <p class="card-text">{{quest.question_body|safe|truncatewords_html:20}}</p>
@@ -23,7 +23,7 @@
     {% else %}
        <br><br><br><br><br>
        <p>
-        <h1 class="text-black">No question available</h1>
+        <h1 class="text-white p-5">No question available</h1>
       </p>
    {% endif %}
   </div>

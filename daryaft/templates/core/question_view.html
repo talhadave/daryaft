@@ -4,7 +4,7 @@
     {% for quest in latest_question_list %}
     <div class="card mb-4 shado bg-light">
       <div class="card-body table-primary">
-        <h4 class="card-title "><a href="/question/{{quest.id}}">{{quest.question_title|truncatewords_html:12}}</a></h4>
+        <h4 class="card-title"> <b><a class="text-black" href="/question/{{quest.id}}">{{quest.question_title|truncatewords_html:12}}</a></h4></b>
         <hr>
         <i class="fa-solid fa-paper-plane-top"></i>
         <p class="card-text">{{quest.question_body|safe|truncatewords_html:20}}</p>

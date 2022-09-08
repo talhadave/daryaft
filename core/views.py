@@ -170,45 +170,44 @@ def ask_comment_answer(request):
 
 
 def LikeView(request):
-    blog_post = get_object_or_404(question, id=request.GET.get("question_id"))
+    questions = get_object_or_404(question, id=request.GET.get("question_id"))
     if request.GET.get("vote_type") == "upvote":
-        if blog_post.downvotes.filter(id=request.user.id).exists():
-            blog_post.downvotes.remove(request.user)
-            blog_post.upvotes.add(request.user)
-        elif blog_post.upvotes.filter(id=request.user.id).exists():
-            blog_post.upvotes.remove(request.user)
+        if questions.downvotes.filter(id=request.user.id).exists():
+            questions.downvotes.remove(request.user)
+            questions.upvotes.add(request.user)
+        elif questions.upvotes.filter(id=request.user.id).exists():
+            questions.upvotes.remove(request.user)
         else:
-            blog_post.upvotes.add(request.user)
+            questions.upvotes.add(request.user)
     elif request.GET.get("vote_type") == "downvote":
-        if blog_post.upvotes.filter(id=request.user.id).exists():
-            blog_post.upvotes.remove(request.user)
-            blog_post.downvotes.add(request.user)
-        elif blog_post.downvotes.filter(id=request.user.id).exists():
-            blog_post.downvotes.remove(request.user)
+        if questions.upvotes.filter(id=request.user.id).exists():
+            questions.upvotes.remove(request.user)
+            questions.downvotes.add(request.user)
+        elif questions.downvotes.filter(id=request.user.id).exists():
+            questions.downvotes.remove(request.user)
         else:
-            blog_post.downvotes.add(request.user)
-    response = {"total_votes": blog_post.total_votes()}
+            questions.downvotes.add(request.user)
+    response = {"total_votes": questions.total_votes()}
     return JsonResponse(response)
 
 
 def AnswerLikeView(request):
-    blog_post = get_object_or_404(Answer, id=request.GET.get("answer_id"))
-    print("helo")
+    answers = get_object_or_404(Answer, id=request.GET.get("answer_id"))
     if request.GET.get("vote_type") == "upvote":
-        if blog_post.downvotes.filter(id=request.user.id).exists():
-            blog_post.downvotes.remove(request.user)
-            blog_post.upvotes.add(request.user)
-        elif blog_post.upvotes.filter(id=request.user.id).exists():
-            blog_post.upvotes.remove(request.user)
+        if answers.downvotes.filter(id=request.user.id).exists():
+            answers.downvotes.remove(request.user)
+            answers.upvotes.add(request.user)
+        elif answers.upvotes.filter(id=request.user.id).exists():
+            answers.upvotes.remove(request.user)
         else:
-            blog_post.upvotes.add(request.user)
+            answers.upvotes.add(request.user)
     elif request.GET.get("vote_type") == "downvote":
-        if blog_post.upvotes.filter(id=request.user.id).exists():
-            blog_post.upvotes.remove(request.user)
-            blog_post.downvotes.add(request.user)
-        elif blog_post.downvotes.filter(id=request.user.id).exists():
-            blog_post.downvotes.remove(request.user)
+        if answers.upvotes.filter(id=request.user.id).exists():
+            answers.upvotes.remove(request.user)
+            answers.downvotes.add(request.user)
+        elif answers.downvotes.filter(id=request.user.id).exists():
+            answers.downvotes.remove(request.user)
         else:
-            blog_post.downvotes.add(request.user)
-    response = {"total_votes": blog_post.total_votes()}
+            answers.downvotes.add(request.user)
+    response = {"total_votes": answers.total_votes()}
     return JsonResponse(response)
