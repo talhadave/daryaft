@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import HttpResponseRedirect, get_object_or_404, redirect, render
 from django.urls import reverse
 from taggit.models import Tag
 
@@ -69,7 +69,7 @@ def edit_question(request, question_id=None):
                 return redirect(reverse("detail", kwargs={"question_id": questions.id}))
         else:
             messages.success(request, "You are not able to edit it.")
-
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
     context = {"form": form}
     template_name = "core/edit_question.html"
     return render(request, template_name, context)
@@ -78,7 +78,6 @@ def edit_question(request, question_id=None):
 @login_required
 def edit_answer(request, answer_id=None):
     if answer_id:
-
         answers = get_object_or_404(Answer, pk=answer_id)
         form = answerForm(instance=answers)
         if request.user == answers.user:
@@ -86,10 +85,9 @@ def edit_answer(request, answer_id=None):
                 form = answerForm(request.POST, instance=answers)
                 if form.is_valid():
                     form.save()
-                return redirect("/")
         else:
             messages.success(request, "You are not able to edit it.")
-
+            return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))
     context = {"form": form}
     template_name = "core/edit_answer.html"
     return render(request, template_name, context)

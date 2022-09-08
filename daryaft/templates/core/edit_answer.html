@@ -13,7 +13,7 @@
                     {{form.as_table|safe}}
                     <tr>
                         <td colspan="2">
-                            <button class="btn btn-primary">Submit</button>
+                            <a href="{{request.META.HTTP_REFERER}}"class="btn btn-primary">Submit</a>
                             <a class="btn btn-primary" href="{{request.META.HTTP_REFERER}}">Cancel</a>
                         </td>
                     </tr>
