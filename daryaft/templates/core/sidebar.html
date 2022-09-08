@@ -1,16 +1,25 @@
 {% extends "base.html" %}
-{% block sidebar %}
-<div class="container text-center">
-    <div class="row">
-      <div class="col">
-        Column
-      </div>
-      <div class="col">
-        Column
-      </div>
-      <div class="col">
-        Column
-      </div>
+{% block content %}
+<div class="container">
+  <div class="row " >
+    <div class="col-2 bg-dark border border-solid padding-left 4px">
+      <nav class="nav flex-column position-fixed  ">
+        <a class="nav-link active text-white" aria-current="page" href="{% url 'question' %}">Questions</a>
+        <a class="nav-link text-white" href="{% url 'tags_list' %}">Tags</a>
+        <a class="nav-link text-white" href="{% url 'all_users' %}">Users</a>
+      </nav>
+    </div>
+    <div class="col-9" >
+      {% block question_view %}
+      {% endblock question_view %}
+    </div>
+    <div class="col-1 "  >
+      {% block answer_view %}
+      {% endblock answer_view %}
     </div>
   </div>
-  {% endblock sidebar %}
+
+
+
+</div>
+{% endblock content %}

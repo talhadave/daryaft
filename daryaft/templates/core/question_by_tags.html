@@ -1,16 +1,17 @@
 {% extends "core/sidebar.html" %}
 {% block question_view %}
-  <div class="container bg-light">
-    {% for quest in latest_question_list %}
+  <div class="container bg-info ">
+   {% if questions %}
+    {% for quest in questions %}
     <div class="card mb-4 shado bg-light">
-      <div class="card-body table-primary">
+      <div class="card-body table-danger">
         <h4 class="card-title "><a href="/question/{{quest.id}}">{{quest.question_title|truncatewords_html:12}}</a></h4>
         <hr>
         <i class="fa-solid fa-paper-plane-top"></i>
         <p class="card-text">{{quest.question_body|safe|truncatewords_html:20}}</p>
         <p>
           <a  class="mr-2">{{quest.user}}</a>
-          <a  class="mr-2">{{quest.answer_set.count}} Answers</a>
+          <a class="mr-2">{{quest.answer_set.count}} Answers</a>
           <a  class="mr-2">{{quest.total_upvotes}} Likes</a>
         </p>
       </div>
@@ -19,6 +20,12 @@
       </div>
     </div>
     {% endfor %}
+    {% else %}
+       <br><br><br><br><br>
+       <p>
+        <h1 class="text-black">No question available</h1>
+      </p>
+   {% endif %}
   </div>
 {% endblock question_view %}
   {% block answer_view %}

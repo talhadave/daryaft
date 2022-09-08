@@ -6,26 +6,28 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
-# from core.views import question_view
-from core.views import (  # answer_view,
-    ask_answer,
-    ask_question,
-    edit_question,
-    index_view,
-    question_detail_view,
+from core.views import (
+    AnswerLikeView,
+    LikeView,
+    all_users,
+    ask_comment_answer,
+    ask_comment_questiom,
     question_view,
-    tags_view,
+    tagged,
+    tags_list_view,
 )
 
 urlpatterns = [
+    path("", question_view, name="question"),
+    path("all_tags", tags_list_view, name="tags_list"),
+    path("all_users", all_users, name="all_users"),
+    path("tag/<slug:slug>/", tagged, name="tagged"),
+    path("question/", include("core.urls")),
     path("question/", question_view, name="question"),
-    path("ask_question/", ask_question, name="ask_question"),
-    path("question/<int:question_id>/", question_detail_view, name="detail"),
-    path("edit_question/<int:question_id>/", edit_question, name="edit"),
-    path("tags/", tags_view),
-    path("index/", index_view),
-    path("answer/<int:question_id>/", ask_answer, name="answer"),
-    # path("answer_view/<int:question_id>/", answer_view, name="answer_view"),
+    path("like_question/", LikeView, name="like_question"),
+    path("like_answer/", AnswerLikeView, name="like_answer"),
+    path("question-comment/", ask_comment_questiom, name="question_comment"),
+    path("answer-comment/", ask_comment_answer, name="answer-comment"),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"

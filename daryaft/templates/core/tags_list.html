@@ -1,0 +1,10 @@
+{% extends "core/sidebar.html" %}
+{% block question_view %}
+<div class="container py-5 pl-3">
+    {% for tag in tags %}
+    <a href="/tag/{{tag.name|slugify}}" class="badge badge-info text-white p-3 mb-4 ml-4"
+       aria-labelledby>{{tag.name}}
+    </a>
+{% endfor %}
+</div>
+{% endblock question_view %}

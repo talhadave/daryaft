@@ -1,6 +1,6 @@
 from django import forms
 
-from core.models import Answer, question
+from core.models import Answer, answerComment, question, questionComment
 
 
 class questionForm(forms.ModelForm):
@@ -9,7 +9,13 @@ class questionForm(forms.ModelForm):
         fields = [
             "question_title",
             "question_body",
+            "tags",
         ]
+        widgets = {
+            "question_title": forms.TextInput(
+                attrs={"placeholder": "Title...", "class": "form-control"}
+            ),
+        }
         exclude = [
             "User",
         ]
@@ -22,3 +28,24 @@ class answerForm(forms.ModelForm):
             "answer",
         ]
         exclude = ["User", "question"]
+
+        def cleanData(self):
+            self.cleaned_data.get("answer")
+
+
+class questionCommentForm(forms.ModelForm):
+    class Meta:
+        model = questionComment
+        fields = [
+            "comment",
+        ]
+        exclude = ["User", "question"]
+
+
+class answerCommentForm(forms.ModelForm):
+    class Meta:
+        model = answerComment
+        fields = [
+            "comment",
+        ]
+        exclude = ["User", "answer"]
