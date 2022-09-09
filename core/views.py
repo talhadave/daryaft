@@ -85,6 +85,7 @@ def edit_answer(request, answer_id=None):
                 form = answerForm(request.POST, instance=answers)
                 if form.is_valid():
                     form.save()
+                return redirect("/")
         else:
             messages.success(request, "You are not able to edit it.")
             return HttpResponseRedirect(request.META.get("HTTP_REFERER", "/"))

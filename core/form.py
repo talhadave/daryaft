@@ -29,9 +29,6 @@ class answerForm(forms.ModelForm):
         ]
         exclude = ["User", "question"]
 
-        def cleanData(self):
-            self.cleaned_data.get("answer")
-
 
 class questionCommentForm(forms.ModelForm):
     class Meta:

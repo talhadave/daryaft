@@ -9,7 +9,7 @@ from daryaft.users.models import User
 class question(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=User)
     question_title = models.CharField(max_length=250)
-    question_body = RichTextField(max_length=1500)
+    question_body = RichTextField(max_length=20000)
     created = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField(max_length=100)
     modified = models.DateTimeField(auto_now=True)
@@ -34,7 +34,7 @@ class Answer(models.Model):
     question = models.ForeignKey(
         question, on_delete=models.CASCADE, blank=False, null=True
     )
-    answer = RichTextField(max_length=1000)
+    answer = RichTextField(max_length=10000)
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, default=User)
     upvotes = models.ManyToManyField(User, related_name="answer_upvotes")
