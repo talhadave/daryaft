@@ -1,9 +1,12 @@
 """
 Base settings to build other settings files upon.
 """
+import sys
 from pathlib import Path
 
 import environ
+
+sys.modules["fontawesome_free"] = __import__("fontawesome-free")
 
 ROOT_DIR = Path(__file__).resolve(strict=True).parent.parent.parent
 # daryaft/
@@ -43,7 +46,7 @@ LOCALE_PATHS = [str(ROOT_DIR / "locale")]
 
 DATABASES = {
     "default": env.db(
-        "DATABASE_URL",
+        "postgres://postgres:root@127.0.0.1:5432/daryaft",
         default="postgres:///daryaft",
     ),
 }
@@ -81,6 +84,10 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "daryaft.users",
+    "core",
+    "ckeditor",
+    "taggit",
+    "fontawesome_free"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -100,6 +107,7 @@ AUTHENTICATION_BACKENDS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
+# AUTH_QUESTION_MODEL="core.Question "
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
 LOGIN_REDIRECT_URL = "users:redirect"
 # https://docs.djangoproject.com/en/dev/ref/settings/#login-url
@@ -219,6 +227,7 @@ X_FRAME_OPTIONS = "DENY"
 EMAIL_BACKEND = env(
     "DJANGO_EMAIL_BACKEND",
     default="django.core.mail.backends.smtp.EmailBackend",
+    # default="django.core.mail.backends.console.EmailBackend"
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5

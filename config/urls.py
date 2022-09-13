@@ -1,3 +1,4 @@
+# from distutils import core
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -5,7 +6,28 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 
+from core.views import (
+    AnswerLikeView,
+    LikeView,
+    all_users,
+    ask_comment_answer,
+    ask_comment_questiom,
+    question_view,
+    tagged,
+    tags_list_view,
+)
+
 urlpatterns = [
+    path("", question_view, name="question"),
+    path("all_tags", tags_list_view, name="tags_list"),
+    path("all_users", all_users, name="all_users"),
+    path("tag/<slug:slug>/", tagged, name="tagged"),
+    path("question/", include("core.urls")),
+    path("question/", question_view, name="question"),
+    path("like_question/", LikeView, name="like_question"),
+    path("like_answer/", AnswerLikeView, name="like_answer"),
+    path("question-comment/", ask_comment_questiom, name="question_comment"),
+    path("answer-comment/", ask_comment_answer, name="answer-comment"),
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"

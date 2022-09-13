@@ -1,0 +1,28 @@
+{% extends "core/sidebar.html" %}
+{% block question_view %}
+  <div class="container bg-light">
+    {% for quest in latest_question_list %}
+    <div class="card mb-4 shado bg-light">
+      <div class="card-body table-primary">
+        <h4 class="card-title"> <b><a class="text-black" href="/question/{{quest.id}}">{{quest.question_title|truncatewords_html:12}}</a></h4></b>
+        <hr>
+        <i class="fa-solid fa-paper-plane-top"></i>
+        <p class="card-text">{{quest.question_body|safe|truncatewords_html:20}}</p>
+        <p>
+          <a  class="mr-2">{{quest.user}}</a>
+          <a  class="mr-2">{{quest.answer_set.count}} Answers</a>
+          <a  class="mr-2">{{quest.total_upvotes}} Likes</a>
+        </p>
+      </div>
+      <div class="card-footer">
+        <small>{{quest.created}}</small>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% endblock question_view %}
+  {% block answer_view %}
+     <button class="btn btn-sm btn-primary " type="submit">
+       <a class="nav-link text-white" href="{% url 'ask_question' %}">Ask Question</a>
+  </button>
+  {% endblock answer_view %}

@@ -1,0 +1,10 @@
+{% extends "core/sidebar.html" %}
+{% block question_view %}
+<div class="container py-5">
+    {% for user in users %}
+    <a class="p-1"
+        aria-labelledby>{{user.username}}
+    </a>
+    {% endfor %}
+</div>
+{% endblock question_view %}
